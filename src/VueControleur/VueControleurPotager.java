@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import modele.SimulateurPotager;
 import modele.environnement.*;
@@ -31,9 +32,13 @@ public class VueControleurPotager extends JFrame implements Observer {
 
     // icones affichées dans la grille
     private ImageIcon icoSalade;
+    private ImageIcon icoCarotte;
+    private ImageIcon icoTomate;
+    private ImageIcon icoRadis;
     private ImageIcon icoTerre;
     private ImageIcon icoVide;
     private ImageIcon icoMur;
+
 
 
     private JLabel[][] tabJLabel; // cases graphique (au moment du rafraichissement, chaque case va être associée à une icône, suivant ce qui est présent dans le modèle)
@@ -64,28 +69,74 @@ public class VueControleurPotager extends JFrame implements Observer {
     }
 */
 
+    /* écouteur clic bouton choix de légume à planter*/
+    public JComboBox listeLegumeAChoisir() {
+        String[] optionsToChoose = {"Salade", "Tomate", "Carotte", "Radis"};
+
+        JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
+        jComboBox.setBounds(6, 45, 100, 20); //(position x, position y, taille x, taille y)
+
+        add(jComboBox);
+
+        return jComboBox;
+    }
+
+   /* //récupère le nom du légume à planter selectionné dans la liste déroulante par l'utilisateur
+    public String legumeChoisiUtilisateur(JComboBox jComboBox) {
+        jComboBox.getActionListeners();
+        jComboBox.actionPerformed();
+        return jComboBox.getAction().NAME;
+        //prochaine fois: récupérer le nom du choix de la liste avec les listeners et vérifier qu'il y a bien eu une action sur la liste avant d'appeler la fonction dans casecultivable
+    }*/
     private void chargerLesIcones() {
-    	// image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons	
-    
+        // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
 
         icoSalade = chargerIcone("Images/data.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/Terre.png");
+        icoCarotte = chargerIcone("Images/data.png", 0, 120, 120, 120);
+        icoTomate = chargerIcone("Images/data.png", 0, 240, 120, 120);
+        icoRadis = chargerIcone("Images/data.png", 0, 360, 120, 120);
+
+
     }
 
-    private void placerLesComposantsGraphiques() {
+    private void placerLesComposantsGraphiques(){
         setTitle("A vegetable garden");
         setSize(540, 250);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // permet de terminer l'application à la fermeture de la fenêtre
 
         JPanel infos = new JPanel();
+        JPanel choixLegumeTitre = new JPanel();
 
-        JTextField jtf = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
-        jtf.setEditable(false);
-        infos.add(jtf);
+        JTextField jtf_infos = new JTextField("infos diverses"); // TODO inclure dans mettreAJourAffichage ...
+        jtf_infos.setEditable(false);
+        infos.add(jtf_infos);
 
+        JTextField jtf_choixL = new JTextField("Légume à planter"); // TODO inclure dans mettreAJourAffichage ...
+        jtf_choixL.setEditable(false);
+        choixLegumeTitre.add(jtf_choixL);
+/*
+        String[] optionsToChoose = {"Salade", "Tomate", "Carotte", "Radis"};
+
+        JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
+        jComboBox.setBounds(6, 45, 100, 20);
+
+        add(jComboBox);*/
+
+        JComboBox<String> legumesProposes = listeLegumeAChoisir(); //affiche la liste des légumes que l'on peut planter
+        //legumeChoisiUtilisateur(legumesProposes); //recupere le nom du légume à planter
+
+        //ajout infos diverses
         add(infos, BorderLayout.EAST);
+
+        //ajout choix légumes
+        add(choixLegumeTitre, BorderLayout.WEST);
+
+        //utilisation de la variable avec le nom du légume à planter
+
+
 
 
 
@@ -135,6 +186,10 @@ public class VueControleurPotager extends JFrame implements Observer {
 
                         switch (legume.getVariete()) {
                             case salade: tabJLabel[x][y].setIcon(icoSalade); break;
+                            case carotte: tabJLabel[x][y].setIcon(icoCarotte); break;
+                            case tomate: tabJLabel[x][y].setIcon(icoTomate); break;
+                            case radis: tabJLabel[x][y].setIcon(icoRadis); break;
+
                         }
 
                     } else {
