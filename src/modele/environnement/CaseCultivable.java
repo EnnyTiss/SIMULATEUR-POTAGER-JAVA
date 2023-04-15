@@ -3,7 +3,7 @@ package modele.environnement;
 import modele.SimulateurPotager;
 import modele.environnement.varietes.*;
 
-public class CaseCultivable extends Case {
+public class  CaseCultivable extends Case {
 
     private Legume legume;
     public CaseCultivable(SimulateurPotager _simulateurPotager) {

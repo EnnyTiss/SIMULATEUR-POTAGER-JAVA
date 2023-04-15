@@ -70,8 +70,8 @@ public class VueControleurPotager extends JFrame implements Observer {
 */
 
     /* écouteur clic bouton choix de légume à planter*/
-    public JComboBox listeLegumeAChoisir() {
-        String[] optionsToChoose = {"Salade", "Tomate", "Carotte", "Radis"};
+    public JComboBox <String> listeLegumeAChoisir() {
+        String[] optionsToChoose = {"radis", "tomate", "carotte", "salade"};
 
         JComboBox<String> jComboBox = new JComboBox<>(optionsToChoose);
         jComboBox.setBounds(6, 45, 100, 20); //(position x, position y, taille x, taille y)
@@ -81,6 +81,16 @@ public class VueControleurPotager extends JFrame implements Observer {
         return jComboBox;
     }
 
+
+
+    public String legumeChoisiUtilisateur(JComboBox <String> jComboBox) {
+        System.out.println("Légume sélectionné: " + jComboBox.getSelectedItem()); //pour item préselectionné (ici salade)
+        jComboBox.addActionListener(e -> { //ajout d'un listener pour détecter s'il y a une action sur la liste
+            System.out.println("Légume sélectionné: " + jComboBox.getSelectedItem());
+        });
+        assert jComboBox.getSelectedItem().toString()!= null; //pour éviter d'avoir une valeur nulle
+        return jComboBox.getSelectedItem().toString();
+    }
    /* //récupère le nom du légume à planter selectionné dans la liste déroulante par l'utilisateur
     public String legumeChoisiUtilisateur(JComboBox jComboBox) {
         jComboBox.getActionListeners();
@@ -91,13 +101,14 @@ public class VueControleurPotager extends JFrame implements Observer {
     private void chargerLesIcones() {
         // image libre de droits utilisée pour les légumes : https://www.vecteezy.com/vector-art/2559196-bundle-of-fruits-and-vegetables-icons
 
+        //pour détecter les icones de légumes, 120*la ligne/colonne de l'icone
         icoSalade = chargerIcone("Images/data.png", 0, 0, 120, 120);//chargerIcone("Images/Pacman.png");
         icoVide = chargerIcone("Images/Vide.png");
         icoMur = chargerIcone("Images/Mur.png");
         icoTerre = chargerIcone("Images/Terre.png");
-        icoCarotte = chargerIcone("Images/data.png", 0, 120, 120, 120);
-        icoTomate = chargerIcone("Images/data.png", 0, 240, 120, 120);
-        icoRadis = chargerIcone("Images/data.png", 0, 360, 120, 120);
+        icoCarotte = chargerIcone("Images/data.png", 360, 360, 120, 120);
+        icoTomate = chargerIcone("Images/data.png", 1040, 360, 120, 120);
+        icoRadis = chargerIcone("Images/data.png", 800, 800, 120, 120);
 
 
     }
@@ -125,8 +136,12 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         add(jComboBox);*/
 
-        JComboBox<String> legumesProposes = listeLegumeAChoisir(); //affiche la liste des légumes que l'on peut planter
-        //legumeChoisiUtilisateur(legumesProposes); //recupere le nom du légume à planter
+        JComboBox <String> legumesProposes = listeLegumeAChoisir(); //affiche la liste des légumes que l'on peut planter
+
+        String legumeAplanter = legumeChoisiUtilisateur(legumesProposes); //recupere le nom du légume à planter
+
+       // Legume.setVariete(legumeAplanter); //on donne la valeur du légume à planter à la variable de classe variété de la classe Legume
+        //System.out.println("Valeur:" + legumeAplanter); //test: ça le fait qu'une fois
 
         //ajout infos diverses
         add(infos, BorderLayout.EAST);
@@ -163,7 +178,8 @@ public class VueControleurPotager extends JFrame implements Observer {
                 tabJLabel[x][y].addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        simulateurPotager.actionUtilisateur(xx, yy);
+                        String legumeAplanter = legumeChoisiUtilisateur(legumesProposes); //permet de mettre à jour la valeur de la variable legumeAplanter quand il ya une nouvelle selection
+                        simulateurPotager.actionUtilisateur(xx, yy, legumeAplanter);
                     }
                 });
             }
@@ -178,13 +194,13 @@ public class VueControleurPotager extends JFrame implements Observer {
 
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient un Pacman, on associe l'icône Pacman du côté de la vue
+                if (simulateurPotager.getPlateau()[x][y] instanceof CaseCultivable) { // si la grille du modèle contient une case cultivable, on associe l'icône du légume du côté de la vue
 
                     Legume legume = ((CaseCultivable) simulateurPotager.getPlateau()[x][y]).getLegume();
 
                     if (legume != null) {
 
-                        switch (legume.getVariete()) {
+                        switch (legume.getVariete()) {//affichage des icones des legumes
                             case salade: tabJLabel[x][y].setIcon(icoSalade); break;
                             case carotte: tabJLabel[x][y].setIcon(icoCarotte); break;
                             case tomate: tabJLabel[x][y].setIcon(icoTomate); break;
@@ -212,14 +228,17 @@ public class VueControleurPotager extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         mettreAJourAffichage();
-        /*
+
+
+
+
         SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         mettreAJourAffichage();
                     }
                 }); 
-        */
+
 
     }
 

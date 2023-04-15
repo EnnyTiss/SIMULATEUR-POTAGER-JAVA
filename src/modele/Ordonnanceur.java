@@ -50,7 +50,7 @@ public class Ordonnanceur extends Observable implements Runnable {
 
             //update = true; // TODO : variable à déporter pour découpler le raffraichissement de la simulation
             try {
-                sleep(pause);
+                sleep(pause);// millisecondes
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

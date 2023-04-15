@@ -13,7 +13,7 @@ public class CaseNonCultivable extends Case {
     }
 
     public void actionUtilisateur(String choix) {
-        // TODO
+        // à laisser vide sinon erreur
     }
     @Override
     public void run() {

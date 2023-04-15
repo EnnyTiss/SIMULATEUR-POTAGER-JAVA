@@ -60,21 +60,32 @@ public class SimulateurPotager {
         for (int x = 5; x < 15; x++) {
             for (int y = 3; y < 7; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
+                CaseCultivable cc2 = new CaseCultivable(this);
+                CaseCultivable cc3 = new CaseCultivable(this);
                 addEntite(cc , x, y);
-                if (rnd.nextBoolean()) {
-                    cc.actionUtilisateur();
+
+
+
+                if (rnd.nextBoolean() ) {
+                    cc.actionUtilisateur("salade");
+
+
+
                 }
 
                 Ordonnanceur.getOrdonnanceur().add(cc);
+                Ordonnanceur.getOrdonnanceur().add(cc2);
+
+
 
             }
         }
 
     }
 
-    public void actionUtilisateur(int x, int y) {
+    public void actionUtilisateur(int x, int y, String choix) {
         if (grilleCases[x][y] != null) {
-            grilleCases[x][y].actionUtilisateur();
+            grilleCases[x][y].actionUtilisateur(choix);
         }
     }
 

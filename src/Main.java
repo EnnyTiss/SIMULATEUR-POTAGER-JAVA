@@ -1,5 +1,5 @@
 
-import VueControleur.VueControleurPotager;
+import   VueControleur.VueControleurPotager;
 import modele.Ordonnanceur;
 import modele.SimulateurPotager;
 
