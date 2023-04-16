@@ -32,6 +32,23 @@ public class SimulateurPotager {
 
     }
 
+    public int getPrécipitations(int x, int y) {
+        return grilleCases[x][y].getPrécipitations();
+    }
+
+    public int getEnsoleillement(int x, int y) {
+        return grilleCases[x][y].getEnsoleillement();
+    }
+
+    public void setPrécipitations(int x, int y, int précipitations) {
+        grilleCases[x][y].setPrécipitations(précipitations);
+    }
+
+    public void setEnsoleillement(int x, int y, int ensolleillement) {
+        grilleCases[x][y].setEnsoleillement(ensolleillement);
+    }
+
+
 
     
     public Case[][] getPlateau() {

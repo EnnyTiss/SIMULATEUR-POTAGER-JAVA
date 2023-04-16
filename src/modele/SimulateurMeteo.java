@@ -9,10 +9,31 @@ public class SimulateurMeteo implements Runnable {
         Ordonnanceur.getOrdonnanceur().add(this);
         simPot = _simPot;
 
+
+
     }
 
     @Override
     public void run() {
-        // TODO
+        // pour chaque case set précipitations et ensolleillement
+        int rand = (int) (Math.random() * 20);
+        for (int x = 0; x < simPot.SIZE_X; x++) {
+            for (int y = 0; y < simPot.SIZE_Y; y++) {
+                // affiche x et y
+                //System.out.println("x: " + x + " y: " + y);
+                if (rand < 10) {
+                    try {
+                        simPot.setEnsoleillement(x, y, (int) (rand + (simPot.getEnsoleillement(x, y)/1.5)));
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        simPot.setPrécipitations(x, y, (int) ((rand - 10) + (simPot.getPrécipitations(x, y))/1.5));
+                    } catch (Exception e) {
+                    }
+
+                }
+            }
+        }
     }
 }
