@@ -3,26 +3,22 @@ package modele.environnement.varietes;
 public abstract class Legume {
 
     //données membres
-    private int temps_croissance;
-
-    private int tempsRestant;
+    private int temps_croissanceMax;
+    private int croissance;
 
     private int precipitationIdeal;
 
     private int ensoleillementIdeal;
     private int resistance;
 
+    private boolean mure = false;
+
     private Varietes variete;
 
 
 
-    public void setTempsCroissance(int temps_croissance) {
-        this.temps_croissance = temps_croissance;
-    }
 
-    public int getTempsCroissance() {
-        return temps_croissance;
-    }
+
 
 
     public int getPrecipitationIdeal() {
@@ -40,6 +36,12 @@ public abstract class Legume {
     public void setEnsoleillementIdeal(int ensoleillementIdeal) {
         this.ensoleillementIdeal = ensoleillementIdeal;
     }
+
+
+    public boolean getMure() {
+        return mure;
+    }
+
 
     public int getResistance() {
         return resistance;
@@ -59,6 +61,24 @@ public abstract class Legume {
         return variete;
     }
 
+    public int getCroissance() {
+        return croissance;
+    }
+
+    public void setCroissance(int croissance) {
+        this.croissance = croissance;
+    }
+
+    public int getTemps_croissanceMax() {
+        return temps_croissanceMax;
+    }
+
+    public void setTemps_croissanceMax(int temps_croissanceMax) {
+        this.temps_croissanceMax = temps_croissanceMax;
+    }
+
+
+
 
 
    // public abstract Varietes setVariete(String choix); //modifier la variété selon le choix de l'utilisateur
@@ -67,15 +87,31 @@ public abstract class Legume {
     }
 
     protected void croissance(int precipitation, int ensoleillement){
-        if ( Math.abs(precipitation - precipitationIdeal) < resistance && Math.abs(ensoleillement - ensoleillementIdeal) < resistance && tempsRestant > 0) {
-            tempsRestant-=1;
+        if ( Math.abs(precipitation - precipitationIdeal) < resistance && Math.abs(ensoleillement - ensoleillementIdeal) < resistance && croissance < temps_croissanceMax) {
+            croissance++;
+            System.out.println("Votre " + variete + " a encore " + (temps_croissanceMax-croissance) + " jours à attendre");
         }
-        if (tempsRestant <= 0) {
-             tempsRestant = this.temps_croissance;
-             System.out.println("Le " + variete + " est prêt à être récolté");
-
+        if (croissance >= temps_croissanceMax) {
+            if (!mure){
+                if (variete == Varietes.radis) {
+                    System.out.println("Un " + variete + " est prête à être récoltée");
+                }
+                else
+                    System.out.println("Une " + variete + " est prêt à être récolté");
+                mure = true;
+            }
         }
 
 
     } // définir selon les conditions
+
+    public void recolte(){
+        if (mure){
+            System.out.println("Vous avez récolté une " + variete);
+            mure = false;
+            croissance = 0;
+        }
+        else
+            System.out.println("Votre " + variete + " n'est pas encore mûre");
+    }
 }
