@@ -19,6 +19,8 @@ public class SimulateurPotager {
     public static final int SIZE_X = 20;
     public static final int SIZE_Y = 10;
 
+    public static final int RATE_GENERATION = 10; // % de chance de générer une entité
+
     private SimulateurMeteo simMet;
 
     // private HashMap<Case, Point> map = new  HashMap<Case, Point>(); // permet de récupérer la position d'une entité à partir de sa référence
@@ -97,7 +99,7 @@ public class SimulateurPotager {
                 addEntite(cc , x, y);
 
                 //70% de chance d'avoir un legume
-                if (rnd.nextInt(100) < 5) {
+                if (rnd.nextInt(100) < RATE_GENERATION) {
                     cc.actionUtilisateur(choix);
                 }
 
