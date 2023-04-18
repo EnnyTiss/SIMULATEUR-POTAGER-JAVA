@@ -68,7 +68,7 @@ public abstract class Legume {
 
     protected void croissance(int precipitation, int ensoleillement){
         if ( Math.abs(precipitation - precipitationIdeal) < resistance && Math.abs(ensoleillement - ensoleillementIdeal) < resistance && tempsRestant > 0) {
-            tempsRestant=-1;
+            tempsRestant-=1;
         }
         if (tempsRestant <= 0) {
              tempsRestant = this.temps_croissance;

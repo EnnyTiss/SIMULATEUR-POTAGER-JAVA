@@ -9,6 +9,6 @@ public class Tomate extends Legume{
         this.setEnsoleillementIdeal(20);
         this.setPrecipitationIdeal(16);
         this.setVariete(Varietes.tomate);
-        this.setResistance(10);
+        this.setResistance(100);
     }
 }
