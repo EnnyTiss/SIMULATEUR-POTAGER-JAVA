@@ -6,15 +6,10 @@ public class Radis extends Legume{
     public Radis() {
         super();
         this.setTempsCroissance(10);
-    }
-    @Override
-    public Varietes getVariete() {
-        return Varietes.radis;
+        this.setEnsoleillementIdeal(6);
+        this.setPrecipitationIdeal(2);
+        this.setVariete(Varietes.radis);
+
     }
 
-    @Override
-    protected void croissance() {
-        // TODO
-        System.out.println("Une radis pousse !!");
-    }
 }

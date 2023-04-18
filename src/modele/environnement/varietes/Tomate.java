@@ -6,15 +6,8 @@ public class Tomate extends Legume{
     public Tomate() {
         super();
         this.setTempsCroissance(10);
-    }
-    @Override
-    public Varietes getVariete() {
-        return Varietes.tomate;
-    }
-
-    @Override
-    protected void croissance() {
-        // TODO
-        System.out.println("Une tomate pousse !!");
+        this.setEnsoleillementIdeal(10);
+        this.setPrecipitationIdeal(8);
+        this.setVariete(Varietes.tomate);
     }
 }

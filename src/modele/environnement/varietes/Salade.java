@@ -6,17 +6,8 @@ public class Salade extends Legume {
     public Salade() {
         super();
         this.setTempsCroissance(10);
-    }
-
-    @Override
-    public Varietes getVariete() {
-        return Varietes.salade;
-    }
-
-
-    @Override
-    protected void croissance() {
-        //System.out.println("Une salade pousse !!");
-
+        this.setEnsoleillementIdeal(6);
+        this.setPrecipitationIdeal(5);
+        this.setVariete(Varietes.salade);
     }
 }
