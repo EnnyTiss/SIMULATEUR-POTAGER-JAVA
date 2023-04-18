@@ -58,37 +58,49 @@ public class SimulateurPotager {
     private void initialisationDesEntites() {
 
         // murs extérieurs horizontaux
-        for (int x = 0; x < 20; x++) {
+        for (int x = 0; x < SIZE_X; x++) {
             addEntite(new CaseNonCultivable(this), x, 0);
-            addEntite(new CaseNonCultivable(this), x, 9);
+            addEntite(new CaseNonCultivable(this), x, SIZE_Y - 1);
         }
 
         // murs extérieurs verticaux
-        for (int y = 1; y < 9; y++) {
+        for (int y = 1; y < SIZE_Y; y++) {
             addEntite(new CaseNonCultivable(this), 0, y);
-            addEntite(new CaseNonCultivable(this), 19, y);
+            addEntite(new CaseNonCultivable(this), SIZE_X - 1, y);
         }
 
-        addEntite(new CaseNonCultivable(this), 2, 6);
-        addEntite(new CaseNonCultivable(this), 3, 6);
 
         Random rnd = new Random();
 
-        for (int x = 5; x < 15; x++) {
-            for (int y = 3; y < 7; y++) {
+
+        //set le type de champ aleatoirement
+        String choix;
+        int randChoix = rnd.nextInt(4);
+        if (randChoix == 0) {
+            choix = "salade";
+        } else if (randChoix == 1) {
+            choix = "tomate";
+        } else if (randChoix == 2) {
+            choix = "carotte";
+        } else if (randChoix == 3) {
+            choix = "radis";
+        }
+        else {
+            choix = "salade";
+        }
+
+        for (int x = 1; x < SIZE_X - 1; x++) {
+            for (int y = 1; y < SIZE_Y - 1; y++) {
                 CaseCultivable cc = new CaseCultivable(this);
                 CaseCultivable cc2 = new CaseCultivable(this);
                 CaseCultivable cc3 = new CaseCultivable(this);
                 addEntite(cc , x, y);
 
-
-
-                if (rnd.nextBoolean() ) {
-                    cc.actionUtilisateur("salade");
-
-
-
+                //70% de chance d'avoir un legume
+                if (rnd.nextInt(100) < 5) {
+                    cc.actionUtilisateur(choix);
                 }
+
 
                 Ordonnanceur.getOrdonnanceur().add(cc);
                 Ordonnanceur.getOrdonnanceur().add(cc2);
