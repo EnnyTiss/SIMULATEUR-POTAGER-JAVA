@@ -16,10 +16,10 @@ import java.util.Random;
 
 public class SimulateurPotager {
 
-    public static final int SIZE_X = 20;
-    public static final int SIZE_Y = 10;
+    public static final int SIZE_X = 3;
+    public static final int SIZE_Y = 3;
 
-    public static final int RATE_GENERATION = 10; // % de chance de générer une entité
+    public static final int RATE_GENERATION = 80; // % de chance de générer une entité
 
     private SimulateurMeteo simMet;
 

@@ -24,15 +24,15 @@ public class SimulateurMeteo implements Runnable {
                 //System.out.println("x: " + x + " y: " + y);
                 if (rand < 10) {
                     try {
-                        simPot.setEnsoleillement(x, y, (int) (rand + (simPot.getEnsoleillement(x, y)/1.5)));
-                        simPot.setPrécipitations(x, y, (int) (simPot.getPrécipitations(x, y)/1.5));
+                        simPot.setEnsoleillement(x, y, (int) (rand + (simPot.getEnsoleillement(x, y)/1.1)));
+                        simPot.setPrécipitations(x, y, (int) (simPot.getPrécipitations(x, y)/1.2));
 
                     } catch (Exception e) {
                     }
                 } else {
                     try {
-                        simPot.setPrécipitations(x, y, (int) ((rand - 10) + (simPot.getPrécipitations(x, y))/1.5));
-                        simPot.setEnsoleillement(x, y, (int) (simPot.getEnsoleillement(x, y)/1.5));
+                        simPot.setPrécipitations(x, y, (int) ((rand - 10) + (simPot.getPrécipitations(x, y))/1.1));
+                        simPot.setEnsoleillement(x, y, (int) (simPot.getEnsoleillement(x, y)/1.2));
                     } catch (Exception e) {
                     }
 

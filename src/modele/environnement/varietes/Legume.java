@@ -5,9 +5,12 @@ public abstract class Legume {
     //données membres
     private int temps_croissance;
 
+    private int tempsRestant;
+
     private int precipitationIdeal;
 
     private int ensoleillementIdeal;
+    private int resistance;
 
     private Varietes variete;
 
@@ -20,6 +23,7 @@ public abstract class Legume {
     public int getTempsCroissance() {
         return temps_croissance;
     }
+
 
     public int getPrecipitationIdeal() {
         return precipitationIdeal;
@@ -37,6 +41,14 @@ public abstract class Legume {
         this.ensoleillementIdeal = ensoleillementIdeal;
     }
 
+    public int getResistance() {
+        return resistance;
+    }
+
+    public void setResistance(int resistance) {
+        this.resistance = resistance;
+    }
+
 
 
 
@@ -50,11 +62,20 @@ public abstract class Legume {
 
 
    // public abstract Varietes setVariete(String choix); //modifier la variété selon le choix de l'utilisateur
-    public void nextStep() {
-        croissance();
+    public void nextStep(int precipitation, int ensoleillement) {
+        croissance(precipitation, ensoleillement);
     }
 
-    protected void croissance(){
-        System.out.println("Une " + getVariete() + " pousse !!");
+    protected void croissance(int precipitation, int ensoleillement){
+        if ( Math.abs(precipitation - precipitationIdeal) < resistance && Math.abs(ensoleillement - ensoleillementIdeal) < resistance && tempsRestant > 0) {
+            tempsRestant=-1;
+        }
+        if (tempsRestant <= 0) {
+             tempsRestant = this.temps_croissance;
+             System.out.println("Le " + variete + " est prêt à être récolté");
+
+        }
+
+
     } // définir selon les conditions
 }

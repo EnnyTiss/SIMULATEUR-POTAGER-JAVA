@@ -48,7 +48,7 @@ public class  CaseCultivable extends Case {
     @Override
     public void run() {
         if (legume != null) {
-            legume.nextStep();
+            legume.nextStep(getEnsoleillement(), getPrécipitations());
         }
     }
 }
