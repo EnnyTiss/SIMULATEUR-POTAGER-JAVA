@@ -1,5 +1,7 @@
 # StardewAPOO
 
+Simulateur de potager sous JAVA. Pas encore fini (du tout).
+
 
 
 ## Getting started
